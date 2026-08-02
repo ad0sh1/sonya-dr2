@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>С днём рождения, любимая моя Сонечка! 🎉</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: linear-gradient(135deg, #fbf8ec 0%, #f4efd3 50%, #ece5be 100%);
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #4a453b;
+padding: 20px;
+overflow-x: hidden;
+position: relative;
+}
+
+.bg-animation {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+z-index: 0;
+overflow: hidden;
+}
+
+.shape {
+position: absolute;
+opacity: 0.6;
+animation: fall linear infinite;
+}
+
+.shape.ball {
+width: 22px;
+height: 22px;
+border-radius: 50%;
+background: radial-gradient(circle at 30% 30%, #e2ab63, #b88642);
+}
+
+.shape.star {
+width: 20px;
+height: 20px;
+background-color: #d4a373;
+clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.shape.confetti-strip {
+width: 16px;
+height: 7px;
+background-color: #9381ff;
+border-radius: 4px;
+}
+
+@keyframes fall {
+0% {
+transform: translateY(-60px) rotate(0deg);
+}
+100% {
+transform: translateY(105vh) rotate(360deg);
+}
+}
+
+.card {
+max-width: 700px;
+width: 100%;
+background: rgba(255, 253, 245, 0.94);
+backdrop-filter: blur(10px);
+border-radius: 40px;
+padding: 40px 30px;
+box-shadow: 0 25px 50px rgba(163, 142, 102, 0.15);
+border: 2px solid rgba(255, 255, 255, 0.9);
+text-align: center;
+position: relative;
+z-index: 1;
+}
+
+h1 {
+font-size: 2.3rem;
+margin-bottom: 20px;
+color: #8c6d36;
+font-weight: 800;
+letter-spacing: -0.5px;
+}
+
+.timer {
+display: flex;
+justify-content: center;
+gap: 15px;
+margin-bottom: 30px;
+flex-wrap: wrap;
+}
+
+.timer-item {
+background: #ffffff;
+border-radius: 24px;
+padding: 18px 12px;
+min-width: 95px;
+box-shadow: 0 8px 20px rgba(184, 134, 66, 0.08);
+border: 1px solid #f0e6cc;
+}
+
+.timer-number {
+font-size: 2.8rem;
+font-weight: bold;
+color: #b88642;
+line-height: 1;
+}
+
+.timer-label {
+font-size: 0.85rem;
+text-transform: uppercase;
+letter-spacing: 2px;
+color: #8c7a6b;
+margin-top: 5px;
+}
+
+.soon-message {
+font-size: 1.8rem;
+margin: 30px 0;
+color: #9c783c;
+font-weight: 600;
+}
+
+.birthday-content {
+display: none;
+animation: fadeInCard 0.8s ease forwards;
+}
+
+@keyframes fadeInCard {
+from { opacity: 0; transform: translateY(15px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.confession {
+background: #fcf9ef;
+border-radius: 30px;
+padding: 30px 25px;
+margin-bottom: 30px;
+border-left: 6px solid #b88642;
+text-align: left;
+font-size: 1.05rem;
+line-height: 1.7;
+color: #595243;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
+}
+
+.confession p {
+margin-bottom: 15px;
+}
+
+.confession p:last-child {
+margin-bottom: 0;
+font-style: normal;
+font-weight: 600;
+color: #8c6d36;
+}
+
+.buttons {
+display: flex;
+flex-wrap: wrap;
+gap: 15px;
+justify-content: center;
+margin-bottom: 20px;
+}
+
+.btn {
+background: linear-gradient(135deg, #d4a373, #b88642);
+border: none;
+color: white;
+padding: 15px 30px;
+font-size: 1.1rem;
+border-radius: 50px;
+cursor: pointer;
+transition: all 0.3s ease;
+box-shadow: 0 8px 20px rgba(184, 134, 66, 0.25);
+font-weight: 600;
+letter-spacing: 0.5px;
+min-width: 250px;
+}
+
+.btn:hover {
+transform: translateY(-4px);
+box-shadow: 0 12px 25px rgba(184, 134, 66, 0.4);
+}
+
+.surprise-message {
+background: #ffffff;
+border-radius: 25px;
+padding: 20px;
+margin-top: 20px;
+border: 2px dashed #d4a373;
+font-size: 1.1rem;
+line-height: 1.6;
+display: none;
+animation: fadeIn 0.6s ease;
+color: #595243;
+font-weight: 500;
+text-align: center;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(15px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+footer {
+margin-top: 25px;
+font-size: 0.9rem;
+color: #8c7a6b;
+opacity: 0.8;
+}
+</style>
+</head>
+<body>
+<div class="bg-animation" id="bgAnimation"></div>
+
+<div class="card">
+<h1 id="mainTitle">С днём рождения, любимая моя Сонечка! 🎉</h1>
+
+<div class="timer" id="timer">
+<div class="timer-item">
+<div class="timer-number" id="days">00</div>
+<div class="timer-label">дней</div>
+</div>
+<div class="timer-item">
+<div class="timer-number" id="hours">00</div>
+<div class="timer-label">часов</div>
+</div>
+<div class="timer-item">
+<div class="timer-number" id="minutes">00</div>
+<div class="timer-label">минут</div>
+</div>
+<div class="timer-item">
+<div class="timer-number" id="seconds">00</div>
+<div class="timer-label">секунд</div>
+</div>
+</div>
+
+<div id="soonMessage" class="soon-message" style="display: none;">
+⏳ Твой день уже совсем близко! ⏳
+</div>
+
+<div id="birthdayContent" class="birthday-content">
+<div class="confession">
+<p>Любимая моя Сонечка , поздравляю тебя с твоим днем !!! Третий десяток уже активно идет , а ты с каждым днем все в большем прайме 😼😼😼</p>
+<p>Ты главный лучик солнца на всей этой планете, я с тобой круглый год и вижу как все больше и больше ты расцветаешь , становишься мудрее , уверенней , женственней , ещё красивей . твои истории ,мысли , образ прекрасны, Тебя можно слушать бесконечно .</p>
+<p>Я тебя безмерно люблю и желаю самых светлых благ: здоровья , настоящей любви где молодой человек будет надежным добрым красавчиком :светленьким и голубоглазым ❤️ и конечно счастья как побочный эффект от всего что будет происходить в вашей жизни.</p>
+<p>Ты самая самая лучшая не только подруга , но и сестра ,и дочь ,и человек ,и девушка .</p>
+</div>
+
+<div class="buttons">
+<button class="btn" id="btnYes">🎁 Нажми для порции добра</button>
+</div>
+
+<div id="surpriseYes" class="surprise-message">
+P.s. это коля, тоже поздравляю, ко всем словам присоединяюсь ❤️
+</div>
+</div>
+
+<footer>самый лучший день у самой прекрасной ✨</footer>
+</div>
+
+<script>
+// 3 августа 2026, 00:00:00 по МСК (что соответствует 2 августа, 21:00:00 по UTC)
+function getTargetDate() {
+return new Date(Date.UTC(2026, 7, 2, 21, 0, 0));
+}
+
+function updateTimer() {
+const targetDate = getTargetDate();
+const now = new Date();
+const diff = targetDate - now;
+
+if (diff <= 0) {
+document.getElementById('timer').style.display = 'none';
+document.getElementById('soonMessage').style.display = 'none';
+document.getElementById('birthdayContent').style.display = 'block';
+return;
+}
+
+const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+document.getElementById('days').innerText = String(days).padStart(2, '0');
+document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+
+const bgAnimation = document.getElementById('bgAnimation');
+const types = ['ball', 'star', 'confetti-strip'];
+const colors = ['#b88642', '#d4a373', '#9c783c', '#8c6d36', '#c29b61'];
+
+for (let i = 0; i < 35; i++) {
+const shape = document.createElement('div');
+const type = types[Math.floor(Math.random() * types.length)];
+shape.classList.add('shape', type);
+
+shape.style.left = Math.random() * 100 + 'vw';
+shape.style.top = -50 + Math.random() * -200 + 'px';
+
+const size = Math.random() * 14 + 12;
+shape.style.width = size + 'px';
+shape.style.height = (type === 'confetti-strip' ? size / 2 : size) + 'px';
+
+if (type !== 'star') {
+shape.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+}
+
+const duration = Math.random() * 5 + 4;
+const delay = Math.random() * 5;
+shape.style.animationDuration = duration + 's';
+shape.style.animationDelay = delay + 's';
+
+bgAnimation.appendChild(shape);
+}
+
+document.getElementById('btnYes')?.addEventListener('click', function() {
+const msg = document.getElementById('surpriseYes');
+msg.style.display = 'block';
+msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+</script>
+</body>
+</html>
